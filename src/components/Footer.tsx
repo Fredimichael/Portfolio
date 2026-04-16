@@ -2,12 +2,25 @@
 
 import { useState, useRef, useEffect } from "react";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export function Footer() {
+  const { t } = useLanguage();
   const [input, setInput] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const focusInput = () => {
     inputRef.current?.focus();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const command = input.trim().toLowerCase();
+      if (command === "contact" || command === "contacto") {
+        window.location.href = "mailto:fredymr00@gmail.com";
+        setInput("");
+      }
+    }
   };
 
   return (
@@ -27,7 +40,7 @@ export function Footer() {
            {/* Terminal Body */}
            <div className="p-6 md:p-8 font-mono text-sm sm:text-base cursor-text h-64 flex flex-col justify-end">
               <div className="mb-6 flex flex-col gap-2">
-                 <p className="text-muted-text">Type <span className="text-accent-cyan">'contact'</span> to send me a message, or simply connect on my networks below.</p>
+                 <p className="text-muted-text">{t.footerTerminalPrompt}</p>
                  <div className="flex flex-wrap gap-4 mt-2">
                     <a href="https://github.com/Fredimichael" target="_blank" rel="noreferrer" className="text-primary-text hover:text-accent-cyan transition-colors underline decoration-surface-border underline-offset-4">
                       github.com/Fredimichael
@@ -48,6 +61,7 @@ export function Footer() {
                     type="text" 
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     className="bg-transparent border-none outline-none text-primary-text flex-1 caret-accent-cyan"
                     spellCheck={false}
                     autoComplete="off"

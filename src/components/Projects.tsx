@@ -7,53 +7,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/LanguageContext";
 
-const projects = [
-  {
-    title: "Plastimundo Leandro",
-    status: "Live / Production",
-    url: "https://plastimundoleandro.com.ar",
-    description: "Sistema de catálogo dinámico y gestión de inventario autoadministrable. Desarrollo end-to-end con frontend moderno y API robusta para el CRUD de productos.",
-    tech: ["Next.js", "NestJS", "PostgreSQL", "Tailwind CSS"],
-    laptopImage: "/images/Plastimundo-laptop.webp",
-    mobileImage: "/images/plastimundo-mobil.webp",
-  },
-  {
-    title: "Yuyito Hierbas",
-    status: "Deployed",
-    url: "https://yuyito-hierbas.vercel.app",
-    description: "Plataforma de e-commerce full-stack orientada a la gestión de ventas y diseño limpio.",
-    tech: ["TypeScript", "Next.js", "Tailwind"],
-    laptopImage: "/images/yuyitohierbas-laptop.webp",
-    mobileImage: "/images/yuyitohierbas-mobil.webp",
-  },
-  {
-    title: "S-ira / appecommerce",
-    status: "Deployed",
-    url: "https://sairajoyas.vercel.app",
-    description: "Arquitecturas web modernas y aplicaciones enfocadas en el rendimiento y tipado estricto.",
-    tech: ["TypeScript", "React", "Node.js"],
-    laptopImage: "/images/sairajoyas-laptop.webp",
-    mobileImage: "/images/sairajoyas-mobil.webp",
-  },
-  {
-    title: "Estudio Creativo",
-    status: "Deployed",
-    url: "https://estudio-creativo.vercel.app",
-    description: "Desarrollo de landing pages dinámicas y optimizadas para clientes locales. Enfoque en marketing digital.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    laptopImage: "/images/estudiocreativo-laptop.webp",
-    mobileImage: "/images/estudiocreativo-mobil.webp",
-  },
-  {
-    title: "Salón Martina",
-    status: "Deployed",
-    url: "#",
-    description: "Presencia web para salón de belleza con catálogo de servicios y turnos. Diseño moderno y rápido.",
-    tech: ["Next.js", "Tailwind", "Vercel"],
-    laptopImage: "/images/salonmartina-laptop.webp",
-    mobileImage: "/images/salonmartina-mobil.webp",
-  }
-];
+
 
 export function Projects() {
   const { t } = useLanguage();
@@ -70,7 +24,7 @@ export function Projects() {
           </div>
 
           <div className="flex flex-col gap-12">
-            {projects.map((project) => (
+            {t.projectsList.map((project) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -144,9 +98,9 @@ export function Projects() {
                     </p>
 
                     <div className="flex flex-wrap gap-2">
-                      {project.tech.map((t) => (
-                        <span key={t} className="text-xs font-mono text-primary-text/80 bg-bg px-3 py-1.5 rounded-md border border-surface-border">
-                          {t}
+                      {project.tech.map((techItem) => (
+                        <span key={techItem} className="text-xs font-mono text-primary-text/80 bg-bg px-3 py-1.5 rounded-md border border-surface-border">
+                          {techItem}
                         </span>
                       ))}
                     </div>

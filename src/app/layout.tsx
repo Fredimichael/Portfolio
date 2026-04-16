@@ -14,7 +14,7 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "Fredi | Full-Stack Engineer",
+  title: "Fredi Roa | Frontend & Full-Stack Developer",
   description: "Building Scalable Systems. Full-Stack Developer specialized in transforming complex logic into seamless digital experiences.",
 };
 

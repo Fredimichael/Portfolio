@@ -4,39 +4,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { GitCommitHorizontal } from "lucide-react";
 
-const educationTimeline = [
-  {
-    commit: "release: v1.4.0",
-    date: "May 2024",
-    title: "Desarrollo de Aplicaciones Flex",
-    institution: "Coderhouse",
-    details: "React Native, Expo CLI, iOS/Android."
-  },
-  {
-    commit: "release: v1.3.0",
-    date: "Feb 2024",
-    title: "Desarrollo Frontend React",
-    institution: "Coderhouse",
-    details: "React.js, Firebase, NPM, integraciones de UI."
-  },
-  {
-    commit: "release: v1.1.0",
-    date: "Nov 2023",
-    title: "Desarrollo Web & JavaScript",
-    institution: "Coderhouse",
-    details: "HTML5, CSS, SASS, Bootstrap, Git, GitHub."
-  },
-  {
-    commit: "init: base_logic",
-    date: "2018 - 2023",
-    title: "Fundamentos en C++",
-    institution: "Universidad Nacional del Chaco Austral (UNCAUS)",
-    details: "Lógica algorítmica y programación orientada a objetos."
-  }
-];
+import { useLanguage } from "@/context/LanguageContext";
 
 export function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start center", "end center"]
@@ -49,7 +21,7 @@ export function Experience() {
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="flex flex-col items-start mb-16">
           <h2 className="font-mono text-2xl sm:text-3xl font-bold flex items-center gap-2">
-            <span className="text-muted-text">$</span> git log --oneline
+            <span className="text-muted-text"></span> {t.experienceTitle}
           </h2>
         </div>
 
@@ -64,7 +36,7 @@ export function Experience() {
           />
 
           <div className="flex flex-col gap-12 sm:gap-16">
-            {educationTimeline.map((item, idx) => (
+            {t.experienceList.map((item, idx) => (
               <div key={item.commit} className="relative flex gap-6 sm:gap-8 items-start group">
                 
                 {/* Node */}

@@ -5,20 +5,7 @@ import { useEffect, useState } from "react";
 import { Terminal } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
-const codeLines = [
-  '<span class="text-[#c678dd]">const</span> <span class="text-[#e5c07b]">developer</span> <span class="text-[#56b6c2]">=</span> {',
-  '  <span class="text-[#e06c75]">name:</span> <span class="text-[#98c379]">"Fredi (Michael) Roa"</span>,',
-  '  <span class="text-[#e06c75]">role:</span> <span class="text-[#98c379]">"Frontend & Full-Stack Developer"</span>,',
-  '  <span class="text-[#e06c75]">location:</span> <span class="text-[#98c379]">"Juan José Castelli, Chaco, Argentina"</span>,',
-  '  <span class="text-[#e06c75]">stack:</span> [<span class="text-[#98c379]">"React"</span>, <span class="text-[#98c379]">"Next.js"</span>, <span class="text-[#98c379]">"React Native"</span>, <span class="text-[#98c379]">"Node.js"</span>, <span class="text-[#98c379]">"NestJS"</span>, <span class="text-[#98c379]">"PostgreSQL"</span>],',
-  '  <span class="text-[#e06c75]">education:</span> {',
-  '    <span class="text-[#e06c75]">university:</span> <span class="text-[#98c379]">"UNCAUS (C++)"</span>,',
-  '    <span class="text-[#e06c75]">bootcamp:</span> <span class="text-[#98c379]">"Coderhouse (Frontend & Mobile)"</span>',
-  '  },',
-  '  <span class="text-[#e06c75]">flagship_project:</span> <span class="text-[#98c379]">"plastimundoleandro.com.ar"</span>,',
-  '  <span class="text-[#e06c75]">status:</span> <span class="text-[#98c379]">"Available for freelance"</span>,',
-  '};'
-];
+
 
 
 export function HeroSection() {
@@ -26,10 +13,12 @@ export function HeroSection() {
   const [displayedLines, setDisplayedLines] = useState<number>(0);
 
   useEffect(() => {
+    // Reset displayed lines and setup new interval when language switches
+    setDisplayedLines(0);
     const timeout = setTimeout(() => {
       let currentLine = 0;
       const interval = setInterval(() => {
-        if (currentLine < codeLines.length) {
+        if (currentLine < t.heroCodeLines.length) {
           setDisplayedLines(currentLine + 1);
           currentLine++;
         } else {
@@ -40,7 +29,7 @@ export function HeroSection() {
     }, 1500); // Initial delay
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [t.heroCodeLines]);
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 overflow-hidden" id="home">
@@ -81,14 +70,34 @@ export function HeroSection() {
             {t.heroRole}. {t.heroSubheadline}
           </p>
           
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center justify-center gap-2 font-mono text-sm bg-surface border border-surface-border text-primary-text px-6 py-3 rounded hover:bg-primary-text hover:text-bg transition-colors duration-300"
-          >
-            <span className="text-accent-cyan group-hover:text-bg transition-colors duration-300">{'>'}</span> 
-            ./view_projects.sh
-          </motion.button>
+          <div className="flex flex-wrap gap-4 mt-2">
+            <motion.button
+              onClick={() => {
+                const element = document.getElementById("projects");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative flex items-center justify-center gap-2 font-mono text-sm bg-surface border border-surface-border text-primary-text px-6 py-3 rounded hover:bg-primary-text hover:text-bg transition-colors duration-300"
+            >
+              <span className="text-accent-cyan group-hover:text-bg transition-colors duration-300">{'>'}</span> 
+              ./view_projects.sh
+            </motion.button>
+
+            <motion.a
+              href="/Fredi_Roa_Resume.pdf"
+              target="_blank"
+              download
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative flex items-center justify-center gap-2 font-mono text-sm border border-surface-border text-muted-text px-6 py-3 rounded hover:border-accent-cyan hover:text-accent-cyan transition-colors duration-300"
+            >
+              <span className="text-muted-text group-hover:text-accent-cyan transition-colors duration-300">$</span> 
+              wget {t.actionResume.toLowerCase().replace(" ", "_")}.pdf
+            </motion.a>
+          </div>
         </motion.div>
 
         {/* Right: Mock IDE Window */}
@@ -118,7 +127,7 @@ export function HeroSection() {
             {/* Code Body */}
             <div className="p-6 font-mono text-sm sm:text-base leading-loose overflow-x-auto min-h-[300px]">
               <div className="flex flex-col">
-                {codeLines.slice(0, displayedLines).map((line, idx) => (
+                {t.heroCodeLines.slice(0, displayedLines).map((line, idx) => (
                    <motion.div 
                     key={idx}
                     initial={{ opacity: 0, y: 5 }}
@@ -129,7 +138,7 @@ export function HeroSection() {
                      <span dangerouslySetInnerHTML={{ __html: line }} />
                    </motion.div>
                 ))}
-                {displayedLines < codeLines.length && (
+                {displayedLines < t.heroCodeLines.length && (
                    <div className="flex">
                       <span className="text-muted-text/30 mr-4 select-none w-4 text-right inline-block">{displayedLines + 1}</span>
                       <motion.div
