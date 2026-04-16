@@ -1,0 +1,23 @@
+
+> temp-app@0.1.0 dev
+> next dev
+
+⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
+▲ Next.js 16.2.2 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.2.147:3001
+✓ Ready in 827ms
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          17032
+- Dir:          /home/fredi/Documentos/Proyectos/Portafolio 2
+- Log:          .next/dev/logs/next-development.log
+
+Run kill 17032 to stop it.
+[?25h
+npm notice
+npm notice New major version of npm available! 10.9.3 -> 11.12.1
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
+npm notice To update run: npm install -g npm@11.12.1
+npm notice
